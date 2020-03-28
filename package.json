@@ -1,0 +1,27 @@
+{
+  "name": "burger",
+  "version": "1.0.0",
+  "description": "application to create burger names and remover it when they have been already eaten.",
+  "main": "index.js",
+  "scripts": {
+    "test": "text"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wcalil/homework-12.git"
+  },
+  "keywords": [
+    "burger"
+  ],
+  "author": "wcalil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wcalil/homework-12/issues"
+  },
+  "homepage": "https://github.com/wcalil/homework-12#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mysql": "^2.18.1"
+  }
+}

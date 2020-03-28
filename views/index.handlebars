@@ -1,0 +1,91 @@
+<h1>Burger Creator</h1>
+
+<ul>
+  {{#each burgers}}
+  <li>
+    <p>
+      {{this.id}}. {{this.burger}}
+
+      <button devourIt="{{this.id}}" class="devourIt">Devour it!</button>
+    </p>
+  </li>
+  {{/each}}
+</ul>
+
+<h2>Write Your Burger</h2>
+<form id="writeBurger" class="button-size">
+  <textarea type="text" name="plan"></textarea>
+  <button type="submit">Save Plan!</button>
+</form>
+
+{{!-- <h2>Update a Plan</h2>
+<form id="updateplan" class="button-size">
+  <select name="id">
+		{{#each plans}}
+			<option value="{{this.id}}">{{this.plan}}</option>
+		{{/each}}
+	</select>
+  <textarea type="text" name="plan" placeholder="plan"></textarea>
+  <button type="submit">Update Plan!</button>
+</form> --}}
+
+<script type="text/javascript">
+  $(".devourIt").on("click", function(event) {
+      var id = $(this).data("id");
+
+   
+    $.ajax("/api/burgers/" + id, {
+      type: "DELETE"
+    }).then(
+      function() {
+        console.log("deleted id ", id);
+      
+        location.reload();
+      }
+    );
+  });
+
+  $("#writeBurger").on("submit", function(event) {
+  
+    event.preventDefault();
+
+   
+    var newBurger = {
+      plan: $("#writeBurger [name=burger]").val().trim()
+    };
+    
+    $.ajax("/api/plans", {
+      type: "POST",
+      data: newBurger
+    }).then(
+      function() {
+        console.log("created new burger");
+             location.reload();
+      }
+    );
+  });
+
+//$("#updateplan").on("submit", function(event) {
+    
+  //  event.preventDefault();
+
+ 
+    //var id = $("[name=id]").val().trim();
+
+    //var updatedPlan = {
+      //plan: $("#updateplan [name=plan]").val().trim()
+   // };
+
+   
+    //$.ajax("/api/plans/" + id, {
+      //type: "PUT",
+      //data: updatedPlan
+    //}).then(
+      //function() {
+        //console.log("updated id ", id);
+       
+        //location.reload();
+      //}
+    //);
+  //}); 
+</script>
