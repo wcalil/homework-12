@@ -2,14 +2,31 @@ const orm = require("../config/orm.js");
 
 module.exports.getAll = orm.getAll
 
+
+
 module.exports.insertOne = function (burger_name, callback) {
     orm.insertOne(burger_name, callback)
-    console.log(res)
+    // console.log(res)
 }
 
-module.exports.updateOne = orm.updateOne({ devoured: 1, id: 4 }, function (res) {
-    console.log(res)
-})
+
+
+
+// module.exports.updateOne = orm.updateOne({ devoured: 1, id: 4 }, function (res) {
+//     console.log(res)
+// })
+
+module.exports.updateOne = function (burger_id) {
+  orm.updateOne({ devoured: 1, id: burger_id }, function (res) {
+      console.log(res)
+  })
+}
+
+// module.exports.addBurger = async function (burgerName) {
+//   return new Promise(function(resolve, reject) {
+//     orm.insertOne()
+//   });
+// }
 
 
 // // Import the ORM to create functions that will interact with the database.

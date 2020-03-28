@@ -2,21 +2,36 @@
 
 <ul>
   {{#each burgers}}
-  <li>
-    <p>
-      {{this.id}}. {{this.burger}}
+  {{#unless this.devoured}}
+    <li>
+      <p>
+        {{this.id}}. {{this.burger_name}}
 
-      <button devourIt="{{this.id}}" class="devourIt">Devour it!</button>
-    </p>
-  </li>
+        <button id="{{this.id}}" class="devourIt">Devour it!</button>
+      </p>
+    </li>
+  {{/unless}}
   {{/each}}
 </ul>
 
 <h2>Write Your Burger</h2>
 <form id="writeBurger" class="button-size">
-  <textarea type="text" name="plan"></textarea>
+  <textarea type="text" name="name_burger"></textarea>
   <button type="submit">Save Plan!</button>
 </form>
+
+<ul>
+  {{#each burgers}}
+  {{#if this.devoured}}
+    <li>
+      <p>
+        {{this.id}}. {{this.burger_name}}
+        <!-- <button devourIt="{{this.id}}" class="devourIt">Devour it!</button> -->
+      </p>
+    </li>
+  {{/if}}
+  {{/each}}
+</ul>
 
 {{!-- <h2>Update a Plan</h2>
 <form id="updateplan" class="button-size">
@@ -31,30 +46,28 @@
 
 <script type="text/javascript">
   $(".devourIt").on("click", function(event) {
-      var id = $(this).data("id");
-
-   
+      var id = event.target.id
     $.ajax("/api/burgers/" + id, {
-      type: "DELETE"
+      type: "PUT"
     }).then(
       function() {
         console.log("deleted id ", id);
-      
+
         location.reload();
       }
     );
   });
 
   $("#writeBurger").on("submit", function(event) {
-  
+
     event.preventDefault();
 
-   
+
     var newBurger = {
-      plan: $("#writeBurger [name=burger]").val().trim()
-    };
-    
-    $.ajax("/api/plans", {
+      burger: $("#writeBurger [name=name_burger]").val().trim()
+    }
+
+    $.ajax("/api/burgers", {
       type: "POST",
       data: newBurger
     }).then(
@@ -66,26 +79,26 @@
   });
 
 //$("#updateplan").on("submit", function(event) {
-    
+
   //  event.preventDefault();
 
- 
+
     //var id = $("[name=id]").val().trim();
 
     //var updatedPlan = {
       //plan: $("#updateplan [name=plan]").val().trim()
    // };
 
-   
+
     //$.ajax("/api/plans/" + id, {
       //type: "PUT",
       //data: updatedPlan
     //}).then(
       //function() {
         //console.log("updated id ", id);
-       
+
         //location.reload();
       //}
     //);
-  //}); 
+  //});
 </script>
