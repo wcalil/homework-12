@@ -1,56 +1,65 @@
-<h1>Burger Creator</h1>
+<div class="row">
+  <div class="col-md-12" style="display: inline-block">
+    <h1 style="font-size:50px; text-align:center">Burger Creator</h1>
+    <br>
+  </div>
+</div>
+<dir class=row>
+  <dir class="col-md-3">
+     </dir>
+  <dir class="col-md-6" style="display: inline-block; background-color:white">
+ <br>
+   <h2 style="text-align:center">Write Your New Burger</h2>
+  <dir class="row"> 
+          
+    <form id="writeBurger" class="button-size" >
+      <textarea style="width:43vw" type="text" name="name_burger"></textarea>
+      <br>
+      <button type="submit">Save Burger!</button>
+    </form>
+    </dir>
+    <br>
+      <h2 style="text-align:center">New Burgers</h2>
+<br>
+    <ul>
+      {{#each burgers}}
+      {{#unless this.devoured}}
+      <li>
+        <p>
+          {{this.id}}. {{this.burger_name}}
 
-<ul>
-  {{#each burgers}}
-  {{#unless this.devoured}}
-    <li>
-      <p>
-        {{this.id}}. {{this.burger_name}}
+          <button id="{{this.id}}" class="devourIt">Devour it!</button>
+        </p>
+      </li>
+      {{/unless}}
+      {{/each}}
+    </ul>
+    <br>
+    <h2 style="text-align:center">Devoured Burgers</h2>
+    <br>
+    <ul>
+      {{#each burgers}}
+      {{#if this.devoured}}
+      <li>
+        <p>
+          {{this.id}}. {{this.burger_name}}
+        </p>
+      </li>
+      {{/if}}
+      {{/each}}
+    </ul>
 
-        <button id="{{this.id}}" class="devourIt">Devour it!</button>
-      </p>
-    </li>
-  {{/unless}}
-  {{/each}}
-</ul>
-
-<h2>Write Your Burger</h2>
-<form id="writeBurger" class="button-size">
-  <textarea type="text" name="name_burger"></textarea>
-  <button type="submit">Save Plan!</button>
-</form>
-
-<ul>
-  {{#each burgers}}
-  {{#if this.devoured}}
-    <li>
-      <p>
-        {{this.id}}. {{this.burger_name}}
-        <!-- <button devourIt="{{this.id}}" class="devourIt">Devour it!</button> -->
-      </p>
-    </li>
-  {{/if}}
-  {{/each}}
-</ul>
-
-{{!-- <h2>Update a Plan</h2>
-<form id="updateplan" class="button-size">
-  <select name="id">
-		{{#each plans}}
-			<option value="{{this.id}}">{{this.plan}}</option>
-		{{/each}}
-	</select>
-  <textarea type="text" name="plan" placeholder="plan"></textarea>
-  <button type="submit">Update Plan!</button>
-</form> --}}
+  </dir>
+  <dir class="col-md-3"></dir>
+</dir>
 
 <script type="text/javascript">
-  $(".devourIt").on("click", function(event) {
-      var id = event.target.id
+  $(".devourIt").on("click", function (event) {
+    var id = event.target.id
     $.ajax("/api/burgers/" + id, {
       type: "PUT"
     }).then(
-      function() {
+      function () {
         console.log("deleted id ", id);
 
         location.reload();
@@ -58,7 +67,7 @@
     );
   });
 
-  $("#writeBurger").on("submit", function(event) {
+  $("#writeBurger").on("submit", function (event) {
 
     event.preventDefault();
 
@@ -71,34 +80,12 @@
       type: "POST",
       data: newBurger
     }).then(
-      function() {
+      function () {
         console.log("created new burger");
-             location.reload();
+        location.reload();
       }
     );
   });
 
-//$("#updateplan").on("submit", function(event) {
 
-  //  event.preventDefault();
-
-
-    //var id = $("[name=id]").val().trim();
-
-    //var updatedPlan = {
-      //plan: $("#updateplan [name=plan]").val().trim()
-   // };
-
-
-    //$.ajax("/api/plans/" + id, {
-      //type: "PUT",
-      //data: updatedPlan
-    //}).then(
-      //function() {
-        //console.log("updated id ", id);
-
-        //location.reload();
-      //}
-    //);
-  //});
 </script>

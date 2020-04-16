@@ -4,7 +4,8 @@
   "description": "application to create burger names and remover it when they have been already eaten.",
   "main": "index.js",
   "scripts": {
-    "test": "text"
+    "test": "text",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "path": "^0.12.7"
   }
 }
